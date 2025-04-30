@@ -1,0 +1,15 @@
+name: Ping Render App
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # Cada 10 minutos (UTC)
+  workflow_dispatch:        # Permite lanzarlo manualmente también
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Curl to Render App
+        run: |
+          echo "⏳ Haciendo ping a la app..."
+          curl -s -o /dev/null -w "%{http_code}" https://verificador-pod.onrender.com/ || echo "❌ Fallo al hacer ping"
